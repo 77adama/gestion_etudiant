@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+{% block title %}Demande{% endblock %}
+{% block body %}
+    <div class="container mt-5 ml-5 col-6 bg-primary d-flex  p-5">
+    {{form_start(form) }}
+   <p> {{form_widget(form.libelle)}} </p> 
+   <p> {{form_widget(form.motif)}} </p>
+  {# <p>  {{form_widget(form.password)}} </p>
+  <p>  {{form_widget(form.matricule)}} </p>
+  <p>  {{form_widget(form.sexe)}} </p>
+   <p> {{form_widget(form.adresse)}} </p> #}
+  <button type="submit" class="btn btn-success">
+    {% if editDemande %}
+        enregistrer
+        {% else %}
+        Ajouter
+        {% endif %}
+  </button>
+         {{form_end(form) }}
+    </div>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+{% block title %}Etudiants{% endblock %}
+{% block body %}
+    <div class="container mt-5 ml-5 col-6 bg-primary d-flex  p-5">
+    {{form_start(form) }}
+   <p> {{form_widget(form.nomComplet)}} </p> 
+   <p> {{form_widget(form.loging)}} </p>
+  <p>  {{form_widget(form.password)}} </p>
+  <p>  {{form_widget(form.matricule)}} </p>
+  <p>  {{form_widget(form.sexe)}} </p>
+   <p> {{form_widget(form.adresse)}} </p>
+   <p> {{form_end(form) }}
+    </div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+{% block title %}RP{% endblock %}
+{% block body %}
+    <div class="container mt-5 col-6 bg-primary p-5">
+    {{form_start(form) }}
+   <p> <label>Nom Complet</label> 
+   {{form_widget(form.nomComplet,{'attr':{'placeholder':'Nom Complet'}})}} </p>
+  <p>  <label>Loging</label> 
+   {{form_widget(form.loging,{'attr':{'placeholder':'Loging'}})}} </p>
+   <p> <label>Password</label> 
+   {{form_widget(form.password,{'attr':{'placeholder':'Password'}})}} </p>
+   {# <p> {{form_widget(form.nomComplet)}} </p> 
+   <p> {{form_widget(form.loging)}} </p>
+  <p>  {{form_widget(form.password)}} </p>
+  <p>  {{form_widget(form.matricule)}} </p>
+  <p>  {{form_widget(form.sexe)}} </p>
+   <p> {{form_widget(form.adresse)}} </p> #}
+         {{form_end(form) }}
+    </div>
+{% endblock %}
