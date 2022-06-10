@@ -14,7 +14,7 @@ class RpFormType extends AbstractType
     {
         $builder
             ->add('nomComplet')
-            ->add('loging')
+            ->add('email')
             ->add('password')
             ->add('Ajouter', SubmitType::class)
         ;

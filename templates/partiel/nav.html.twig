@@ -1,3 +1,4 @@
+{% if app.user %}
 <nav class="navbar navbar-expand-lg navbar-dark bg-success py-4 h4">
   <div class="container-fluid">
     {# <a class="navbar-brand" href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Navbar</font></font></a>
@@ -81,5 +82,8 @@
         <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
       </form> #}
     </div>
+    <a href="/logout" class="btn btn-light text-success btn-lg "  >Deconnexion</a>
+     {# <a href="/logout" class="dropdown border-bottom-0"></a> #}
   </div>
 </nav>
+ {% endif %} 

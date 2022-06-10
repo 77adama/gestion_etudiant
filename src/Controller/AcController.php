@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AcController extends AbstractController
 {
@@ -27,12 +28,14 @@ class AcController extends AbstractController
     }
 
     #[Route('/add-ac', name: 'addAc')]
-    public function addAc(Request $request, EntityManagerInterface $em): Response
+    public function addAc(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $hasher): Response
     {
         $ac= new Ac();
+        $ac->setRoles(["ROLE_AC"]);
         $form = $this->createForm(AcFormType::class, $ac);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $ac->setPassword($hasher->hashPassword($ac, $ac->getPassword()));
             $em->persist($ac);
             $em->flush();
         }

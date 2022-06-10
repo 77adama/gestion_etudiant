@@ -18,14 +18,14 @@ class AcFixtures extends Fixture
             
         $rp= new Rp();
         $rp-> setNomComplet($faker->name());
-        $rp->setLoging($faker->email());
+        $rp->setEmail($faker->email());
         $rp->setPassword($faker->password());
         // $rp->setRole("rp");
         $manager->persist($rp);
 
         $ac = new Ac();
         $ac-> setNomComplet($faker->name());
-        $ac->setLoging($faker->email());
+        $ac->setEmail($faker->email());
         $ac->setPassword($faker->password());
         // $ac->setRole("ac");
         $ac->setRp($rp);

@@ -1,14 +1,12 @@
 {% extends 'base.html.twig' %}
 {% block title %}RP{% endblock %}
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
 {% block body %}
     <div class="container mt-5 col-6 bg-primary p-5">
     {{form_start(form) }}
-   <p> <label>Nom Complet</label> 
-   {{form_widget(form.nomComplet,{'attr':{'placeholder':'Nom Complet'}})}} </p>
-  <p>  <label>Loging</label> 
-   {{form_widget(form.loging,{'attr':{'placeholder':'Loging'}})}} </p>
-   <p> <label>Password</label> 
-   {{form_widget(form.password,{'attr':{'placeholder':'Password'}})}} </p>
+   {{form_widget(form)}} 
+   {# {{form_widget(form.email,{'attr':{'placeholder':'email'}})}}  #}
+   {#{{form_widget(form.password,{'attr':{'placeholder':'Password'}})}} #}
    {# <p> {{form_widget(form.nomComplet)}} </p> 
    <p> {{form_widget(form.loging)}} </p>
   <p>  {{form_widget(form.password)}} </p>

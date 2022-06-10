@@ -2,48 +2,82 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
+use App\Entity\Personne;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\UserRepository;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
+#[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\InheritanceType("JOINED")]
 #[ORM\DiscriminatorColumn(name:"role", type:"string")]
 #[ORM\DiscriminatorMap(["rp"=>"Rp","ac"=>"Ac","etudiant"=>"Etudiant"])]
-
-#[ORM\Entity(repositoryClass: UserRepository::class)]
-class User extends Personne
+class User extends Personne implements UserInterface, PasswordAuthenticatedUserInterface
 {
     // #[ORM\Id]
     // #[ORM\GeneratedValue]
     // #[ORM\Column(type: 'integer')]
     // private $id;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    protected $loging;
+    #[ORM\Column(type: 'string', length: 180, unique: true)]
+    protected $email;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'json')]
+    protected $roles = [];
+
+    #[ORM\Column(type: 'string')]
     protected $password;
-
-    #[ORM\Column(type: 'string', length: 255)]
-    private $role;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getLoging(): ?string
+    public function getEmail(): ?string
     {
-        return $this->loging;
+        return $this->email;
     }
 
-    public function setLoging(string $loging): self
+    public function setEmail(string $email): self
     {
-        $this->loging = $loging;
+        $this->email = $email;
 
         return $this;
     }
 
-    public function getPassword(): ?string
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->email;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * @see PasswordAuthenticatedUserInterface
+     */
+    public function getPassword(): string
     {
         return $this->password;
     }
@@ -55,15 +89,12 @@ class User extends Personne
         return $this;
     }
 
-    public function getRole(): ?string
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials()
     {
-        return $this->role;
-    }
-
-    public function setRole(string $role): self
-    {
-        $this->role = $role;
-
-        return $this;
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
     }
 }

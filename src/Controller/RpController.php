@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class RpController extends AbstractController
 {
@@ -29,12 +30,13 @@ class RpController extends AbstractController
     }
 
     #[Route('/add-rp', name: 'addRp')]
-    public function addRp(Request $request, EntityManagerInterface $em): Response
+    public function addRp(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $hasher): Response
     {
         $rp= new Rp();
         $form = $this->createForm(RpFormType::class, $rp);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $rp->setPassword($hasher->hashPassword($rp, $rp->getPassword()));
             $em->persist($rp);
             $em->flush();
         }

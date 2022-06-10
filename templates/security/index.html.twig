@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello SecurityController!{% endblock %}
+
+{% block body %}
+      <div class="container bg-success my-5 py-2 rounded text-white">
+            {{form_start(form)}}
+                {{form_row(form.nomComplet)}}
+                {{form_row(form.email)}}
+                {{form_row(form.password)}}
+                <div class="row">
+                    <div class="col-md-">
+                        <button class="btn btn-primary">
+                            Se Connecter
+                        </button>
+                    <div>
+                <div>
+            {{form_end(form)}}
+      </div>
+{% endblock %}
