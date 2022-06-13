@@ -2,9 +2,12 @@
 {% block title %}Ac{% endblock %}
 {% form_theme form 'bootstrap_5_layout.html.twig' %}
 {% block body %}
-    <div class="container mt-5 ml-5 col-6 bg-primary d-flex  p-5">
+    <div class="container mt-5 ml-5 col-6 bg-success text-white d-flex  p-5">
     {{form_start(form) }}
     {{form_widget(form)}}
+    <button type="submit" class="btn btn-success text-success bg-white">
+                    Ajouter
+                </button>
          {{form_end(form) }}
     </div>
 {% endblock %}

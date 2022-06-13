@@ -33,6 +33,7 @@ class RpController extends AbstractController
     public function addRp(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $hasher): Response
     {
         $rp= new Rp();
+        $rp->setRole(["ROLE_RP"]);
         $form = $this->createForm(RpFormType::class, $rp);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

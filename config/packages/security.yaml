@@ -32,11 +32,18 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
          - { path: ^/ac, roles: ROLE_AC}
-         - { path: ^/add-ac, roles: ROLE_AC}
-         - { path: ^/add-rp, roles: ROLE_USER}
-         - { path: ^/rp, roles: ROLE_AC}
-
-        # - { path: ^/profile, roles: ROLE_USER }
+         - { path: ^/ac, roles: ROLE_RP}
+         - { path: ^/add-ac, roles: ROLE_RP}
+         - { path: ^/add-rp, roles: ROLE_RP}
+         - { path: ^/rp, roles: ROLE_RP}
+         - { path: ^/demande, roles: ROLE_USER} 
+         - { path: ^/add-demande, roles: ROLE_USER}
+         - { path: ^/module, roles: ROLE_RP}
+         - { path: ^/add-module, roles: ROLE_RP}
+         - { path: ^/add-annee-scolaire, roles: ROLE_AC}
+         - { path: ^/annee/scolaire, roles: ROLE_AC}
+         - { path: ^/inscrire-etudiant, roles: ROLE_AC}
+        # - { path: ^/profile, roles: ROLE_USER } 
 
 when@test:
     security:

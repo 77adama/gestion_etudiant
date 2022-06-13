@@ -14,7 +14,7 @@ class EtudiantFormType extends AbstractType
     {
         $builder
             ->add('nomComplet')
-            ->add('loging')
+            ->add('email')
             ->add('password')
             ->add('matricule')
             ->add('sexe')

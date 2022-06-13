@@ -25,19 +25,19 @@ class EtudiantController extends AbstractController
             'etudiants' =>$etudiant
         ]);
     }
-    #[Route('/add-etudiant', name: 'addEtudiant')]
-    public function addEtudiant(Request $request, EntityManagerInterface $em): Response
-    {
-        $etudiant= new Etudiant();
-        $form = $this->createForm(EtudiantFormType::class, $etudiant);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em->persist($etudiant);
-            $em->flush();
-        }
+    // #[Route('/add-etudiant', name: 'addEtudiant')]
+    // public function addEtudiant(Request $request, EntityManagerInterface $em): Response
+    // {
+    //     $etudiant= new Etudiant();
+    //     $form = $this->createForm(EtudiantFormType::class, $etudiant);
+    //     $form->handleRequest($request);
+    //     if ($form->isSubmitted() && $form->isValid()) {
+    //         $em->persist($etudiant);
+    //         $em->flush();
+    //     }
 
-        return $this->render('etudiant/addEtudiant.html.twig', [
-            'form' =>$form->createView()
-        ]);
-    }
+    //     return $this->render('etudiant/addEtudiant.html.twig', [
+    //         'form' =>$form->createView()
+    //     ]);
+    // }
 }

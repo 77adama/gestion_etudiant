@@ -13,6 +13,7 @@
             <span class="visually-hidden">(current)</span>
           </a>
         </li> #}
+        {% if is_granted("ROLE_RP") %}
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Professeurs</a>
           <div class="dropdown-menu">
@@ -20,6 +21,8 @@
             <a class="dropdown-item" href="/professeur">Lister Professeurs</a>  
           </div>
         </li>
+        {% endif %}
+        {% if is_granted("ROLE_RP") %}
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">classes</a>
           <div class="dropdown-menu">
@@ -27,6 +30,8 @@
             <a class="dropdown-item" href="/classe">Lister Classes</a>  
           </div>
         </li>
+        {% endif %}
+        {% if is_granted("ROLE_RP") %}
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Modules</a>
           <div class="dropdown-menu">
@@ -34,6 +39,8 @@
             <a class="dropdown-item" href="/module">Lister Modules</a>  
           </div>
         </li>
+        {% endif %}
+        {% if is_granted("ROLE_RP") %}
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">AnneeScolaire</a>
           <div class="dropdown-menu">
@@ -41,6 +48,8 @@
             <a class="dropdown-item" href="/annee/scolaire">Lister AnneeScolaires</a>  
           </div>
         </li>
+        {% endif %}
+        {% if is_granted("ROLE_RP") %}
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Ac</a>
           <div class="dropdown-menu">
@@ -48,6 +57,9 @@
             <a class="dropdown-item" href="/ac">Lister Acs</a>  
           </div>
         </li>
+        {% endif %}
+        {% if is_granted("ROLE_RP") %}
+        
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Rp</a>
           <div class="dropdown-menu">
@@ -55,6 +67,7 @@
             <a class="dropdown-item" href="/rp">Lister Rps</a>  
           </div>
         </li>
+        {% endif %}
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Demandes</a>
           <div class="dropdown-menu">
@@ -65,17 +78,18 @@
             <a class="dropdown-item" href="#">Separated link</a>
           </div>
         </li>
+{% if is_granted("ROLE_AC") and is_granted("ROLE_RP") %}
 
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" id="navbarDropdown  " role="button" data-bs-toggle="dropdown" aria-expanded="false" href="#">les Inscriptions</a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Lister Etudiant</a></li>
+            <li><a class="dropdown-item" href="/etudiant">Lister Etudiant</a></li>
             <li><a class="dropdown-item" href="#">Ajouter Etudiant</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Inscrire Etudiant</a></li>
+            <li><a class="dropdown-item" href="inscrire-etudiant">Inscrire Etudiant</a></li>
           </ul>
         </li>
-
+{% endif %}
       </ul>
       {# <form class="d-flex">
         <input class="form-control me-sm-2" type="text" placeholder="Search">
