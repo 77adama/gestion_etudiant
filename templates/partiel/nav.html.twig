@@ -68,6 +68,7 @@
           </div>
         </li>
         {% endif %}
+        {% if is_granted("ROLE_RP") or is_granted("ROLE_AC") or is_granted("ROLE_ETUDANT") %}
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Demandes</a>
           <div class="dropdown-menu">
@@ -78,7 +79,8 @@
             <a class="dropdown-item" href="#">Separated link</a>
           </div>
         </li>
-{% if is_granted("ROLE_AC") and is_granted("ROLE_RP") %}
+        {% endif %}
+{% if is_granted("ROLE_RP") or is_granted("ROLE_AC") or is_granted("ROLE_ETUDANT") %}
 
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" id="navbarDropdown  " role="button" data-bs-toggle="dropdown" aria-expanded="false" href="#">les Inscriptions</a>

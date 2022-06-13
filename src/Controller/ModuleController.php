@@ -34,6 +34,7 @@ class ModuleController extends AbstractController
         $form = $this->createForm(ModuleFormType::class, $module);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $module->setRp($this->getUser());
             $em->persist($module);
             $em->flush();
         }

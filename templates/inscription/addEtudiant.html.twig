@@ -3,30 +3,10 @@
 {% block body %}
     <div class="container mt-5 ml-5 col-6 bg-primary d-flex  p-5">
            {{form_start(form) }}
-           {{form_widget(form)}}
-           <label class="form-weight-bold" for="annee">annee</label>
-                <select class="form-control" name="annee"> 
-                {% for annee in annees %}
-                <option value="{{annee.id}}">{{annee.libelle}}</option>   
-                {% endfor %}
-                </select>
-                <label class="form-weight-bold" for="ac">AC</label>
-                <select class="form-control" name="ac"> 
-                {% for ac in acs %}
-                <option value="{{ac.id}}">{{ac.nomComplet}}</option>   
-                {% endfor %}
-                </select>
-                <label class="form-weight-bold" for="">classe</label>
-                <select class="form-control" name="classe"> 
-                {% for classe in classes %}
-                <option value="{{classe.id}}">{{classe.libelle}}</option>   
-                {% endfor %}
-                </select>
-                 {# <label class="form-weight-bold" for="">Date</label>
-                 <input type="date" class="form-control"> #}
+           {{form_row(formm)}}
                  <button type="submit" class="btn btn-success">
                     Ajouter
-                </button>
+                </button> 
             {{form_end(form) }}
     </div>
 {% endblock %}

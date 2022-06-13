@@ -10,6 +10,7 @@ use App\Repository\RpRepository;
 use App\Form\InscriEtudiantFormType;
 use App\Repository\ClasseRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\InscriptionRepository;
 use App\Repository\AnneeScolaireRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,51 +29,82 @@ class InscriptionController extends AbstractController
     }
 
     #[Route('/inscrire-etudiant', name: 'inscrEtudiant')]
-    public function addEtudiant(Request $request,AcRepository $acRep,ClasseRepository $classeRep,AnneeScolaireRepository $annRepository, EntityManagerInterface $em,UserPasswordHasherInterface $hasher ): Response
-    {
-        $etudiant= new Etudiant();
-        $etudiant->setRoles(["ROLE_ETUDANT"]);
+    public function AddEtudiant(Request $request, EntityManagerInterface $em): Response{
+        // $inscription = new Inscription();
+        // $form = $this->createForm(InscriEtudiantFormType::class, $inscription );
+       $etudiant= new Etudiant();
         $inscription= new Inscription();
-        // $form = $this->createForm(InscriEtudiantFormType::class, $etudiant);
-        $form = $this->createFormBuilder($etudiant)
-                ->add('nomComplet')
-                ->add('email')
-                ->add('password')
-                ->add('matricule')
-                ->add('sexe')
-                ->add('adresse')
-                // ->add('date')
-                // ->add('classe')
-                // ->add('anneescolaire')
-                // ->add('ac')
-                // ->add('etudiant')
-                -> getForm();
+        $etudiant->setRoles(["ROLE_ETUDANT"]);
+        $form = $this->createForm(InscriEtudiantFormType::class, $inscription);
+        $formm = $this->createForm(EtudiantFormType::class, $etudiant);
+        $etudiant->setPassword('passer');
+        $matricule='MAT-'.date('dmYhis');
+        $etudiant->setMatricule($matricule);
+
         $form->handleRequest($request);
-        // dd($form);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $anneeInscr= $annRepository->find($request->get("annee"));
-            $acInscr=$acRep->find($request->get("ac_id"));
-            $classeInscr=$classeRep->find($request->get("classe"));
+        $formm->handleRequest($request);
+        
+        if( $form->isSubmitted() && $form->isValid() && $formm->isSubmitted() && $formm->isValid()) {
             $em->persist($etudiant);
             $inscription->setEtudiant($etudiant);
-            // $inscription->setDate($date);   setAc_id($_SESSION["user-connect"]->id);            
-            $inscription->setClasse($classeInscr);
-            $inscription->setAnneescolaire($anneeInscr);
-            $inscription->setAc($acInscr);
+            $inscription->setAc($this->getUser());
             $etudiant->setPassword($hasher->hashPassword($etudiant, $etudiant->getPassword()));
             $em->persist($inscription);
             $em->flush();
+
+            
         }
-        $anneescolaire= $annRepository->findAll();
-        $ac=$acRep->findAll();
-        $classe=$classeRep->findAll();
-        return $this->render('inscription/addEtudiant.html.twig', [
-            'form' =>$form->createView(),
-            'annees'=>$anneescolaire,
-            'acs' =>$ac,
-            'classes'=>$classe,
-        ]);
+        return $this->renderForm('inscription/addEtudiant.html.twig', [
+                    'form' =>$form,
+                    'formm' =>$formm,
+
+                ]);
     }
+    // public function addEtudiant(Request $request,AcRepository $acRep,ClasseRepository $classeRep,AnneeScolaireRepository $annRepository, EntityManagerInterface $em,UserPasswordHasherInterface $hasher ): Response
+    // {
+    //     // $etudiant= new Etudiant();
+    //     // $etudiant->setRoles(["ROLE_ETUDANT"]);
+    //     $inscription= new Inscription();
+    //     $form = $this->createForm(InscriEtudiantFormType::class, $inscription);
+    //     // $form = $this->createFormBuilder($etudiant)
+    //     //         ->add('nomComplet')
+    //     //         ->add('email')
+    //     //         ->add('password')
+    //     //         ->add('matricule')
+    //     //         ->add('sexe')
+    //     //         ->add('adresse')
+    //             // ->add('date')
+    //             // ->add('classe')
+    //             // ->add('anneescolaire')
+    //             // ->add('ac')
+    //             // ->add('etudiant')
+    //             // -> getForm();
+    //     $form->handleRequest($request);
+    //     // dd($form);
+    //     if ($form->isSubmitted() && $form->isValid()) {
+    //         $anneeInscr= $annRepository->find($request->get("annee"));
+    //         $acInscr=$acRep->find($request->get("ac"));
+    //         $classeInscr=$classeRep->find($request->get("classe"));
+    //         $em->persist($etudiant);
+    //         $inscription->setEtudiant($etudiant);
+    //         // $inscription->setDate($date);              
+    //         $inscription->setClasse($classeInscr);
+    //         $inscription->setAnneescolaire($anneeInscr);
+    //         $inscription->setAc($acInscr); this->User
+    //         $etudiant->setPassword($hasher->hashPassword($etudiant, $etudiant->getPassword()));
+    //         $em->persist($inscription);
+    //         $em->flush();
+    //     }
+    //     $anneescolaire= $annRepository->findAll();
+    //     $ac=$acRep->findAll();
+    //     $classe=$classeRep->findAll();
+    //     return $this->render('inscription/addEtudiant.html.twig', [
+    //         'form' =>$form->createView(),
+    //         'annees'=>$anneescolaire,
+    //         'acs' =>$ac,
+    //         'classes'=>$classe,
+    //     ]);
+    // }
 
     // #[Route('/inscrire-etudiant', name: 'inscrEtudiant')]
     // public function addEtudiant(Request $request): Response

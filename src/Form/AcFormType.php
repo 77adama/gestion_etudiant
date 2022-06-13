@@ -18,7 +18,6 @@ class AcFormType extends AbstractType
             ->add('password')
             // ->add('rp')
             // ->add('Ajouter', SubmitType::class)
-
         ;
     }
 
