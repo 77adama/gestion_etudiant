@@ -27,7 +27,7 @@ class DemandeController extends AbstractController
     }
 
     #[Route('/add-demande', name: 'addDemande')]
-    #[Route('/{id}/edit', name: 'editDemande')]
+    #[Route('/demande/{id}/edit', name: 'editDemande')]
     public function form(Demande $demande=null , Request $request, EntityManagerInterface $em): Response
     {
         if(!$demande){
@@ -36,6 +36,7 @@ class DemandeController extends AbstractController
         $form = $this->createForm(DemandeFormType::class, $demande);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $demande->setEtudiant($this->getUser());
             $em->persist($demande);
             $em->flush();
         }

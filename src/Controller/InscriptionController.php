@@ -29,9 +29,7 @@ class InscriptionController extends AbstractController
     }
 
     #[Route('/inscrire-etudiant', name: 'inscrEtudiant')]
-    public function AddEtudiant(Request $request, EntityManagerInterface $em): Response{
-        // $inscription = new Inscription();
-        // $form = $this->createForm(InscriEtudiantFormType::class, $inscription );
+    public function AddEtudiant(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $hasher): Response{
        $etudiant= new Etudiant();
         $inscription= new Inscription();
         $etudiant->setRoles(["ROLE_ETUDANT"]);
@@ -45,10 +43,10 @@ class InscriptionController extends AbstractController
         $formm->handleRequest($request);
         
         if( $form->isSubmitted() && $form->isValid() && $formm->isSubmitted() && $formm->isValid()) {
+            $etudiant->setPassword($hasher->hashPassword($etudiant, $etudiant->getPassword()));
             $em->persist($etudiant);
             $inscription->setEtudiant($etudiant);
             $inscription->setAc($this->getUser());
-            $etudiant->setPassword($hasher->hashPassword($etudiant, $etudiant->getPassword()));
             $em->persist($inscription);
             $em->flush();
 

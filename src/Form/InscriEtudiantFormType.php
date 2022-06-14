@@ -9,6 +9,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class InscriEtudiantFormType extends AbstractType
 {
@@ -23,12 +24,7 @@ class InscriEtudiantFormType extends AbstractType
                 'class' =>  AnneeScolaire::class,
                 'choice_label' => 'libelle',
             ])
-            // ->add('anneescolaire')
-            // ->add('ac')
-            // ->add('etudiant')
-            // ->add('nomComplet', 'attr', [
-            //     'mapped' => false,
-            // ])
+            ->add('Ajouter', SubmitType::class)
         ;
     }
 

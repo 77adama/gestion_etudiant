@@ -33,6 +33,7 @@ class ClasseController extends AbstractController
         $form = $this->createForm(ClasseFormType::class, $classe);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $classe->setRp($this->getUser());
             $em->persist($classe);
             $em->flush();
         }

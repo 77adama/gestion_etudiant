@@ -25,12 +25,12 @@
 
                 {% for module in modules %}
                 <tr>
-                <td>{% set i = i + 1 %} {{ i }}</td>
-                <td>{{module.libelle}}</td>
+                <td>{% set i = i + 1 %} {{ i }}</td> 
+                <td>{{module.libelle}}</td> 
                 <td  class="text-center">
                 <button class="btn btn-outline-primary btn-sm">Détails</button>
-                <button class="btn btn-warning btn-sm">Modifier</button>
-                <button class="btn btn-danger btn-sm">Supprimer</button>
+               <a href="module/{{module.id}}/edit" class="btn btn-warning btn-sm">modifier</a>
+                <a href="RP/module/delete/{{module.id}}" class="btn btn-danger btn-sm">suprimer</a>
             </td>
                 </tr>
                     

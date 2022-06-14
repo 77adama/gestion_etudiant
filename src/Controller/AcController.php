@@ -19,7 +19,7 @@ class AcController extends AbstractController
     public function index(AcRepository $acRep, PaginatorInterface $paginator,Request $request): Response
     {
         $ac=$paginator->paginate($acRep->findAll(),
-        $request->query->getInt('page',1),4
+        $request->query->getInt('page',1),5
     );
         return $this->render('ac/index.html.twig', [
             'controller_name' => 'AcController',

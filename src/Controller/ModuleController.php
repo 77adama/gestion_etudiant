@@ -28,9 +28,13 @@ class ModuleController extends AbstractController
     }
 
     #[Route('/add-module', name: 'addModule')]
-    public function addModule(Request $request, EntityManagerInterface $em): Response
+    #[Route('/module/{id}/edit', name: 'editModule')]
+    public function form(module $module=null, Request $request, EntityManagerInterface $em): Response
     {
-        $module= new Module();
+        if(!$module){
+            $module= new Module();
+        }
+        
         $form = $this->createForm(ModuleFormType::class, $module);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -39,7 +43,17 @@ class ModuleController extends AbstractController
             $em->flush();
         }
         return $this->render('module/addModule.html.twig', [
-            'form' =>$form->createView()        
+            'form' =>$form->createView(),
+            'editModule' =>$module->getId() !==null      
         ]);
     }
+
+            #[Route('RP/module/delete/{id}', name: 'module_delete')]
+        public function delete(Module $module,EntityManagerInterface $em): Response
+        {
+        $em->remove($module);
+        $em->flush();
+        return $this->redirectToRoute('app_module');
+        }
+
 }

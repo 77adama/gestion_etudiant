@@ -20,7 +20,7 @@ class ProfesseurController extends AbstractController
     {
 
         $professeur=$paginator->paginate($professeurRep->findAll(),
-        $request->query->getInt('page',1),4
+        $request->query->getInt('page',1),5
     );
         return $this->render('professeur/index.html.twig', [
             'controller_name' => 'ProfesseurController',

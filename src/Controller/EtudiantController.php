@@ -18,7 +18,7 @@ class EtudiantController extends AbstractController
     public function index(EtudiantRepository $etudiantRepository,PaginatorInterface $paginator,Request $request): Response
     {
         $etudiant= $paginator->paginate ($etudiantRepository->findAll(),
-        $request->query->getInt('page',1),1
+        $request->query->getInt('page',1),5
         );
         return $this->render('etudiant/index.html.twig', [
             'controller_name' => 'EtudiantController',
